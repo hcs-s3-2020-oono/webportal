@@ -1,8 +1,8 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+
 <meta charset="UTF-8">
 <title>WebPortal Main</title>
 
@@ -66,23 +66,8 @@
 
 	<!-- コンテンツ -->
 	<div class="container">
-		<div class="row">
-
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>住所検索 - 郵便番号</h2>
-					<form method="post" th:action="@{/zip}">
-						<div class="input-group">
-							<input type="number" class="form-control" name="zipcode"
-								placeholder="郵便番号 : XXXXXXX"> <span
-								class="input-group-btn">
-								<button type="submit" class="btn btn-primary">検索</button>
-							</span>
-						</div>
-					</form>
-				</div>
-			</div>
-
+		<div class="content-box">
+			<h1>住所検索画面</h1>
 		</div>
 	</div>
 
