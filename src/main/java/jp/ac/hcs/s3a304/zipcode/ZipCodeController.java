@@ -28,9 +28,18 @@ public class ZipCodeController {
 	public String getZipCode(@RequestParam("zipcode") String zipcode, Principal principal, Model model) {
 		
 		log.info("["+principal.getName()+"]"+"住所検索："+zipcode);
-		ZipCodeEntity zipCodeEntity = zipCodeService.getZip(zipcode);
-		model.addAttribute("zipCodeEntity", zipCodeEntity);
 		
-		return "zipcode/zipcode";
+		if(zipcode.length() == 0) {
+			model.addAttribute("errorMSG", "入力値に誤りがあります");
+			return "index";
+		}
+		ZipCodeEntity zipCodeEntity = zipCodeService.getZip(zipcode);
+		if(zipCodeEntity.getResults().size() > 0) {
+			model.addAttribute("zipCodeEntity", zipCodeEntity);
+			return "zipcode/zipcode";
+		} else {
+			model.addAttribute("errorMSG", "検索結果はありません");
+			return "zipcode/zipcode";
+		}
 	}
 }
