@@ -37,8 +37,7 @@
 </head>
 
 <body th:classappend="${session.isDarkmode} ? 'mode-dark'">
-
-	<!-- 共通ヘッダ -->
+<!-- 共通ヘッダ -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<h1>
 			<a class="navbar-brand title-font" th:href="@{/}">WebPortal.com</a>
@@ -63,65 +62,55 @@
 		</div>
 	</nav>
 
-	<!-- コンテンツ -->
-	<div class="container">
-		<div class="row">
+<div class="container">
+		<div class="content-box">
+<h2>タスク管理</h2>
+<hr>
+<h3 th:if="${errorMSG}" th:text="${errorMSG}" style="color:red"></h3>
+<h3 th:if="${okMSG}" th:text="${okMSG}" style="color:blue"></h3>
+<form method="post" th:action="@{/task/insert}">
+<div class="input-group">
+<input type="text" class="form-control" name="comment" placeholder="タスク内容">
+<input type="date" class="form-control" name="limitday">
+<span class="input-group-btn">
+<button type="submit" class="btn btn-warning">追加</button>
+</span>
+</div>
+</form>
+<hr>
+<table class="table">
+<thred>
+<tr bgcolor="royalblue">
+<th scope="col">内容</th>
+<th scope="col">期限</th>
+</tr>
+</thred>
+<tbody>
+<ul th:each="task : ${taskEntity.tasklist}">
+<li>
+<tr bgcolor="white">
+<td><a th:href="@{'/task/delete/' + ${task.id}}">
+<span th:text="${task.comment}" onClick="return disp()"></span></a></td>
+<td><span th:text="${task.limitday}"></span></td>
+</tr>
+</li>
+</ul>
+</tbody>
+</table>
+<hr>
+<form method="post" th:action="@{/task/csv}">
+<button type="submit" class="btn btn-info">CSV出力</button>
+</form>
+</div>
+</div>
+<!-- 共通スクリプト -->
+	<script>function disp(){
 
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>住所検索 - 郵便番号</h2>
-					<form method="post" th:action="@{/zip}">
-						<div class="input-group">
-							<input type="number" class="form-control" name="zipcode"
-								placeholder="郵便番号 : XXXXXXX"> <span
-								class="input-group-btn">
-								<button type="submit" class="btn btn-primary">検索</button>
-							</span>
-						</div>
-					</form>
-				</div>
-			</div>
-			
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>北海道の天気予報</h2>
-					<form method="post" th:action="@{/weather}">
-					<div class="input-group">
-					<select class="form-control" name="cityCode">
-					<option value="016010">札幌</option>
-					<option value="016020">岩見沢</option>
-					<option value="016030">倶知安</option>
-					<option value="017010">函館</option>
-					<option value="017020">江差</option>
-					<option value="015010">室蘭</option>
-					<option value="015020">浦河</option>
-					<option value="014030">帯広</option>
-					<option value="014020">釧路</option>
-					<option value="014010">根室</option>
-					<option value="013030">紋別</option>
-					<option value="013020">北見</option>
-					<option value="012010">旭川</option>
-					<option value="011000">稚内</option>
-					</select>
-							<button type="submit" class="btn btn-primary">検索</button>
-					</div>
-					</form>
-				</div>
-			</div>
-			
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>タスク管理</h2>
-					<form method="post" th:action="@{/task}">
-								<button type="submit" class="btn btn-primary">タスク管理へ</button>
-					</form>
-				</div>
-			</div>
-		</div>
-	</div>
+		var result = window.confirm('完了したタスクを削除します。よろしいですか？');
+		
+		return result;
 
-	<!-- 共通スクリプト -->
-	<script th:if="${errorMSG}">alert("入力に誤りがあります。")</script>
+	}</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
