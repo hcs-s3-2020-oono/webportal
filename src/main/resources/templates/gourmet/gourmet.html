@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+
 <meta charset="UTF-8">
 <title>WebPortal Main</title>
 
@@ -65,87 +66,21 @@
 
 	<!-- コンテンツ -->
 	<div class="container">
-		<div class="row">
-
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>住所検索 - 郵便番号</h2>
-					<form method="post" th:action="@{/zip}">
-						<div class="input-group">
-							<input type="number" class="form-control" name="zipcode"
-								placeholder="郵便番号 : XXXXXXX"> <span
-								class="input-group-btn">
-								<button type="submit" class="btn btn-primary">検索</button>
-							</span>
-						</div>
-					</form>
-				</div>
-			</div>
-			
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>北海道の天気予報</h2>
-					<form method="post" th:action="@{/weather}">
-					<div class="input-group">
-					<select class="form-control" name="cityCode">
-					<option value="016010">札幌</option>
-					<option value="016020">岩見沢</option>
-					<option value="016030">倶知安</option>
-					<option value="017010">函館</option>
-					<option value="017020">江差</option>
-					<option value="015010">室蘭</option>
-					<option value="015020">浦河</option>
-					<option value="014030">帯広</option>
-					<option value="014020">釧路</option>
-					<option value="014010">根室</option>
-					<option value="013030">紋別</option>
-					<option value="013020">北見</option>
-					<option value="012010">旭川</option>
-					<option value="011000">稚内</option>
-					</select>
-							<button type="submit" class="btn btn-primary">検索</button>
-					</div>
-					</form>
-				</div>
-			</div>
-			
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>タスク管理</h2>
-					<form method="post" th:action="@{/task}">
-								<button type="submit" class="btn btn-primary">タスク管理へ</button>
-					</form>
-				</div>
-			</div>
-			
-			<div class="col-sm-6">
-				<div class="content-box">
-					<h2>飲食店検索 - 北海道</h2>
-					<form method="post" th:action="@{/gourmet}">
-						<div class="input-group">
-							<input type="text" class="form-control" name="gourmetname"
-								placeholder="飲食店"> <span
-								class="input-group-btn">
-								<button type="submit" class="btn btn-primary">検索</button>
-							</span>
-						</div>
-					</form>
-				</div>
-			</div>
-			<div class="col-sm-6" role="presentation" sec:authorize="hasRole('ADMIN')">
-			<!-- 管理者のみのコンテンツ -->
-			<div class="content-box">
-			<h2>ユーザ管理</h2>
-			<form method="get" th:action="@{/user/list}">
-			<button type="submit" class="btn btn-success">ユーザ管理へ</button>
-			</form>
-			</div>
-			</div>
+		<div class="content-box">
+			<h1>北海道グルメ</h1>
+			<h2>「<span th:text="${gourmetname}"></span>」の検索結果</h2>
+			<ul th:each="shoplist : ${ShopEntity.shoplist}" th:object="${shoplist}">
+			<li><a th:href="*{url}" target="new">
+			<img class="shopimage" th:src="*{logo_image}" />
+			<p><span th:text="*{name}"></span></p></a></li>
+			<li><a th:href="@{https://www.google.com/maps/search/?api=1(query=*{address})}" target="new" th:text="*{address}"></a></li>
+			<li><span th:text="*{access}"></span></li>
+			<hr>
+			</ul>
 		</div>
 	</div>
 
 	<!-- 共通スクリプト -->
-	<script th:if="${errorMSG}">alert("入力に誤りがあります。")</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>

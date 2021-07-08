@@ -20,7 +20,7 @@ public class TaskRepository {
 	private static final String SQL_SELECT_ALL = "SELECT * FROM task WHERE user_id = ? order by limitday";
 	
 	/** SQL 1件追加 */
-	private static final String SQL_INSERT_ONE = "INSERT INTO task(id, user_id, comment, limitday) VALUES((SELECT MAX(id) + 1 FROM task),?,?,?)";
+	private static final String SQL_INSERT_ONE = "INSERT INTO task(id, user_id, priority, title, comment, limitday) VALUES((SELECT MAX(id) + 1 FROM task),?,?,?,?,?)";
 	
 	/** SQL 1件削除 */
 	private static final String SQL_DELETE_ONE = "DELETE FROM task WHERE id = ?";
@@ -52,6 +52,8 @@ public class TaskRepository {
 			TaskData data = new TaskData();
 			data.setId((Integer) map.get("id"));
 			data.setUser_id((String) map.get("user_id"));
+			data.setPriority(Priority.valueOf((String)map.get("priority")));
+			data.setTitle((String) map.get("title"));
 			data.setComment((String) map.get("comment"));
 			data.setLimitday((Date) map.get("limitday"));
 			
@@ -67,8 +69,8 @@ public class TaskRepository {
 	 * @throws DataAccessException
 	 */
 	public int insertOne(TaskData data) throws DataAccessException {
-		
-		int rowNumber = jdbc.update(SQL_INSERT_ONE, data.getUser_id(), data.getComment(), data.getLimitday());
+		String priority = data.getPriority().toString();
+		int rowNumber = jdbc.update(SQL_INSERT_ONE, data.getUser_id(), priority, data.getTitle(), data.getComment(), data.getLimitday());
 		return rowNumber;
 	}
 	

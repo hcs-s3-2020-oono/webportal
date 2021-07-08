@@ -46,10 +46,12 @@ public class TaskController {
 	@PostMapping("/task/insert")
 	public String insertTask(@RequestParam(name = "comment", required = false) String comment,
 			                 @RequestParam(name = "limitday", required = false) String limitday,
+			                 @RequestParam(name = "priority", required = false) String priority,
+			                 @RequestParam(name = "title", required = false) String title,
 			                 Principal principal, Model model) throws ParseException {
 		
-		boolean isSuccess = taskService.insertTask(principal.getName(), comment, limitday);
-		log.info("["+principal.getName()+"]"+"タスク管理追加："+ comment + "," + limitday);
+		boolean isSuccess = taskService.insertTask(principal.getName(), title, comment, limitday, priority);
+		log.info("["+principal.getName()+"]"+"タスク管理追加："+ title + "," + comment + "," + limitday + "," + priority);
 		if(isSuccess) {
 			model.addAttribute("okMSG", "正常に追加されました");
 		}else {

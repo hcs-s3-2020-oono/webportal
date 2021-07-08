@@ -49,10 +49,12 @@ public class TaskService {
 	 * @return 追加データ数
 	 * @throws ParseException
 	 */
-	public boolean insertTask(String user_id, String comment, String limitday) throws ParseException {
+	public boolean insertTask(String user_id, String title, String comment, String limitday, String priority) throws ParseException {
 		
 		boolean isSuccess = false;
-		if(comment == null || comment.length() == 0 || comment.length() > 50) {
+		if(title == null || title.length() == 0 || title.length() > 50) {
+			return isSuccess;
+		} else if(comment == null || comment.length() == 0 || comment.length() > 50) {
 			return isSuccess;
 		} else if(!limitday.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
 			return isSuccess;
@@ -60,6 +62,8 @@ public class TaskService {
 		
 		TaskData data = new TaskData();
 		data.setUser_id(user_id);
+		data.setPriority(Priority.id0f(Integer.parseInt(priority)));
+		data.setTitle(title);
 		data.setComment(comment);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date limitday2 = sdf.parse(limitday);

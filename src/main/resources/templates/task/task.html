@@ -70,8 +70,14 @@
 <h3 th:if="${okMSG}" th:text="${okMSG}" style="color:blue"></h3>
 <form method="post" th:action="@{/task/insert}">
 <div class="input-group">
-<input type="text" class="form-control" name="comment" placeholder="タスク内容">
+<input type="text" class="form-control" name="title" placeholder="タイトル">
 <input type="date" class="form-control" name="limitday">
+<select class="form-control" name="priority">
+					<option value="1">大</option>
+					<option value="2">中</option>
+					<option value="3">小</option>
+					</select>
+<input type="text" class="form-control" name="comment" placeholder="タスク内容">
 <span class="input-group-btn">
 <button type="submit" class="btn btn-warning">追加</button>
 </span>
@@ -81,6 +87,8 @@
 <table class="table">
 <thred>
 <tr bgcolor="royalblue">
+<th scope="col">タイトル</th>
+<th scope="col">優先度</th>
 <th scope="col">内容</th>
 <th scope="col">期限</th>
 </tr>
@@ -90,7 +98,9 @@
 <li>
 <tr bgcolor="white">
 <td><a th:href="@{'/task/delete/' + ${task.id}}">
-<span th:text="${task.comment}" onClick="return disp()"></span></a></td>
+<span th:text="${task.title}" onClick="return disp()"></span></a></td>
+<td><span th:text="${task.priority.value}"></span></td>
+<td><span th:text="${task.comment}"></span></td>
 <td><span th:text="${task.limitday}"></span></td>
 </tr>
 </li>
