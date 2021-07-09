@@ -67,6 +67,8 @@
 	<!-- コンテンツ -->
 	<div class="container">
 		<div class="content-box">
+		<h3 th:if="${errorMSG}" th:text="${errorMSG}" style="color:red"></h3>
+		<h3 th:if="${okMSG}" th:text="${okMSG}" style="color:blue"></h3>
 			<h1>ユーザ一覧</h1>
 			<hr>
 			<table class="table">
@@ -77,22 +79,27 @@
 			<th scope="col">ユーザ名</th>
 			<th scope="col">ダークモード</th>
 			<th scope="col">権限</th>
+			<th scope="col">詳細</th>
 			</tr>
 			</thred>
 			<tbody>
-			<ul th:each="user : ${UserEntity.userlist}">
+			<ul th:each="user : ${UserEntity.userlist}" th:object="${user}">
 			<li>
 			<tr bgcolor="white">
-			<td><span th:text="${user.user_id}"></span></td>
-			<td><span th:text="${user.enabled} ? '有効':'無効'"></span></td>
-			<td><span th:text="${user.user_name}"></span></td>
-			<td><span th:text="${user.darkmode} ? 'ダークモード':'-'"></span></td>
-			<td><span th:text="${user.role}"></span></td>
+			<td><span th:text="*{user_id}"></span></td>
+			<td><span th:text="*{enabled} ? '有効':'無効'"></span></td>
+			<td><span th:text="*{user_name}"></span></td>
+			<td><span th:text="*{darkmode} ? 'ダークモード':'-'"></span></td>
+			<td><span th:text="*{role}"></span></td>
+			<td><a class="btn btn-success" th:href="@{'/user/detail/' + *{user_id}}">詳細</a></td>
 			</tr>
 			</li>
 			</ul>
 			</tbody>
 			</table>
+			<form method="get" th:action="@{/user/insert}">
+			<button type="submit" class="btn btn-warning">作成</button>
+		</form>
 		</div>
 	</div>
 

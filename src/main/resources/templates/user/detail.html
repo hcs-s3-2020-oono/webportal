@@ -22,7 +22,8 @@
 	href="../static/img/favicon.ico">
 <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
 <link rel="apple-touch-icon" th:href="@{/img/favicon.ico}">
-<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}" sizes="192x192">
+<link rel="apple-touch-icon" th:href="@{/img/favicon.ico}"
+	sizes="192x192">
 <link rel="apple-touch-icon" th:href="@{/img/favicon.ico}" sizes="58x58">
 
 <!-- スタイル設定 -->
@@ -34,13 +35,13 @@
 	href="../static/css/ress.css">
 <link rel="stylesheet" th:href="@{/css/home.css}"
 	href="../static/css/home.css">
-
+<script th:src="@{/js/task.js}"></script>
 </head>
 
 <body th:classappend="${session.isDarkmode} ? 'mode-dark'">
 
 	<!-- 共通ヘッダ -->
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
 		<h1>
 			<a class="navbar-brand title-font" th:href="@{/}">WebPortal.com</a>
 		</h1>
@@ -64,24 +65,20 @@
 		</div>
 	</nav>
 
-<!-- コンテンツ -->
+	<!-- コンテンツ -->
 	<div class="container">
 		<div class="content-box">
-			<h2>ユーザ登録</h2>
-			<p>（管理者用）</p>
-
+			<h2>ユーザ詳細</h2>
 			<div class="input-form">
-				<form method="post" th:action="@{/user/insert}"
-					th:object="${userForm}">
+			
+				<form method="post" th:action="@{/user/update}"
+					th:object="${userData}">
 
 					<label for="user_id">ユーザID(メールアドレス)</label>
-					<div class="form-group input-box"
-						th:classappend="${#fields.hasErrors('user_id')} ? 'has-error'">
-						<input type="text" class="form-control" name="user_id"
-							placeholder="xxxxxxx@xxx.xxx" th:field="*{user_id}"> <span
-							class="text-danger" th:if="${#fields.hasErrors('user_id')}"
-							th:errors="*{user_id}">user_id error</span>
-					</div>
+					<p class="view-mail" th:text="*{user_id}"></p>
+					<input type="hidden" name="user_id" th:value="*{user_id}">
+
+					<hr>
 
 					<label for="password">パスワード</label>
 					<div class="form-group input-box"
@@ -90,6 +87,7 @@
 							placeholder="xxxxxxxx" th:field="*{password}"> <span
 							class="text-danger" th:if="${#fields.hasErrors('password')}"
 							th:errors="*{password}">password error</span>
+						<p>※未入力の場合、前のパスワードを維持します</p>
 					</div>
 
 					<label for="user_name">ユーザ名</label>
@@ -104,17 +102,38 @@
 					<label for="role">権限設定</label>
 					<div class="form-group input-box">
 						<div>
-							<input type="radio" name="role" value="ROLE_ADMIN" id="role1">管理
+							<input type="radio" name="role" th:field="*{role}" value="ROLE_ADMIN" id="role1">管理
 						</div>
 						<div>
-							<input type="radio" name="role" value="ROLE_GENERAL" id="role2">一般
+							<input type="radio" name="role" th:field="*{role}" value="ROLE_GENERAL" id="role2">一般
 						</div>
 						<span class="text-danger" th:if="${#fields.hasErrors('role')}"
 							th:errors="*{role}">role error</span>
 					</div>
-
-					<button type="submit" class="btn btn-warning">登録</button>
+					<button class="btn btn-primary" type="submit" name="update">更新</button>
+				</form>
+				
+				<hr>
+					
+				<form method="post" th:action="@{/user/delete}" th:object="${userData}">
+					<input type="hidden" th:value="*{user_id}" name="user_id">
+					<button class="btn btn-danger" type="submit" name="delete">削除</button>
 				</form>
 			</div>
 		</div>
 	</div>
+
+	<!-- 共通スクリプト -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+</body>
+</html>

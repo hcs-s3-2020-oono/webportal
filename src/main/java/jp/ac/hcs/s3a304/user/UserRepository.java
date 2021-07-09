@@ -23,7 +23,7 @@ public class UserRepository {
 	private static final String SQL_SELECT_ONE = "SELECT * FROM m_user WHERE user_id = ?";
 
 	/** SQL 1件追加 */
-	private static final String SQL_INSERT_ONE = "INSERT INTO m_user(user_id, encrypted_password, user_name, darkmode, role) VALUES(?, ?, ?, ?, ?)";
+	private static final String SQL_INSERT_ONE = "INSERT INTO m_user(user_id, encrypted_password, user_name, darkmode, role, enabled) VALUES(?, ?, ?, ?, ?, ?)";
 
 	/** SQL 1件更新 管理者 パスワード更新有 */
 	private static final String SQL_UPDATE_ONE_WITH_PASSWORD = "UPDATE m_user SET encrypted_password = ?, user_name = ?, role = ? WHERE user_id = ?";
@@ -65,6 +65,10 @@ public class UserRepository {
 	 */
 	public UserData selectOne(String user_id) throws DataAccessException {
 		List<Map<String, Object>> resultList = jdbc.queryForList(SQL_SELECT_ONE, user_id);
+		if(resultList.size() == 0) {
+			UserData data = null;
+			return data;
+		}
 		UserEntity entity = mappingSelectResult(resultList);
 		// 必ず1件のみのため、最初のUserDataを取り出す
 		UserData data = entity.getUserlist().get(0);
@@ -100,11 +104,12 @@ public class UserRepository {
 	 */
 	public int insertOne(UserData data) throws DataAccessException {
 		int rowNumber = jdbc.update(SQL_INSERT_ONE,
-				data.getUser_id(),
-				passwordEncoder.encode(data.getPassword()),
-				data.getUser_name(),
-				data.isDarkmode(),
-				data.getRole());
+		data.getUser_id(),
+		passwordEncoder.encode(data.getPassword()),
+		data.getUser_name(),
+		data.isDarkmode(),
+		data.getRole(),
+		data.isEnabled());
 		return rowNumber;
 	}
 
