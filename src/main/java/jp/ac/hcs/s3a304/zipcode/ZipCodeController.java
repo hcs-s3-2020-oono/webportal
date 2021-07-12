@@ -30,7 +30,7 @@ public class ZipCodeController {
 		log.info("["+principal.getName()+"]"+"住所検索："+zipcode);
 		
 		if(zipcode.length() == 0) {
-			model.addAttribute("errorMSG", "入力値に誤りがあります");
+			model.addAttribute("errorMSG", "郵便番号がただしくありません");
 			return "index";
 		}
 		ZipCodeEntity zipCodeEntity = zipCodeService.getZip(zipcode);

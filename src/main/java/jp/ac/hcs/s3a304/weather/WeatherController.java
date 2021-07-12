@@ -28,8 +28,13 @@ public class WeatherController {
 	public String getWeather(@RequestParam("cityCode") String cityCode,Principal principal, Model model) {
 		
 		log.info("["+principal.getName()+"]"+"天気予報検索："+cityCode);
-		WeatherEntity WeatherEntity = WeatherService.getWeather(cityCode);
-			model.addAttribute("WeatherEntity", WeatherEntity);
-			return "weather/weather";
+		WeatherEntity weatherEntity = WeatherService.getWeather(cityCode);
+		if(weatherEntity == null) {
+			model.addAttribute("errorMSG2","都市コードが正しくありません");
+			return "index";
+		}
+		
+		model.addAttribute("WeatherEntity", weatherEntity);
+		return "weather/weather";
 	}
 }

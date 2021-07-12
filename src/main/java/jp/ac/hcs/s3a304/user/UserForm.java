@@ -22,7 +22,7 @@ public class UserForm {
 	/** パスワード */
 	@NotBlank(message="{require_check}")
 	@Length(min = 4, max = 100, message="{length_check}")
-	@Pattern(regexp="^[a-z0-9]+$", message="{pattern_check}")
+	@Pattern(regexp="^[a-z0-9A-Z]+$", message="{pattern_check}")
 	private String password;
 	
 	/** ユーザ名 */

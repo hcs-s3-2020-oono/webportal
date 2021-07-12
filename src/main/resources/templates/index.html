@@ -141,11 +141,13 @@
 			</form>
 			</div>
 			</div>
+			
 		</div>
 	</div>
 
 	<!-- 共通スクリプト -->
-	<script th:if="${errorMSG}">alert("入力に誤りがあります。")</script>
+	<script th:if="${errorMSG}">alert("郵便番号が正しくありません")</script>
+	<script th:if="${errorMSG2}">alert("都市コードが正しくありません")</script>
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 		crossorigin="anonymous"></script>
