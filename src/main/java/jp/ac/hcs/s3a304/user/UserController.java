@@ -22,6 +22,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	/**
+	 * ユーザ管理画面を表示する
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/user/list")
 	public String getUserList(Model model) {
 		
@@ -31,11 +36,25 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * ユーザ追加画面を表示する
+	 * @param form
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/user/insert")
 	public String getUserInsert(UserForm form, Model model) {
 		return "user/insert";
 	}
 	
+	/**
+	 * ユーザ追加を行い、ユーザ管理画面を表示する
+	 * @param form
+	 * @param bindingResult
+	 * @param principal
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/user/insert")
 	public String getUserInsert(@ModelAttribute @Validated UserForm form,
 			BindingResult bindingResult,
@@ -56,6 +75,13 @@ public class UserController {
 		return getUserList(model);
 	}
 	
+	/**
+	 * ユーザ詳細画面を表示する
+	 * @param user_id
+	 * @param principal
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/user/detail/{id}")
 	public String getUserDetail(@PathVariable("id") String user_id,
 			Principal principal,
@@ -75,6 +101,13 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * ユーザ削除を行い、ユーザ管理画面を表示する
+	 * @param user_id
+	 * @param principal
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/user/delete")
 	public String deleteUser(@RequestParam("user_id") String user_id,
 			Principal principal,
@@ -91,6 +124,14 @@ public class UserController {
 		return getUserList(model);
 	}
 	
+	/**
+	 * ユーザ更新を行い、ユーザ管理画面を表示する
+	 * @param form
+	 * @param bindingResult
+	 * @param principal
+	 * @param model
+	 * @return
+	 */
 	@PostMapping("/user/update")
 	public String updateUser(@ModelAttribute @Validated UserFormForUpdata form,
 			BindingResult bindingResult,

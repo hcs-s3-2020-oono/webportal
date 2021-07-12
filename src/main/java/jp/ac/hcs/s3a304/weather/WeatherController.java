@@ -18,11 +18,11 @@ public class WeatherController {
 	private WeatherService WeatherService;
 
 	/**
-	 * 郵便番号から住所を検索し、結果画面を表示する
-	 * @param zipcode 検索する郵便番号（ハイフン無し）
-	 * @param principal ログイン情報
+	 * cityCodeで指定した北海道の地域の天気情報の画面を表示する
+	 * @param cityCode
+	 * @param principal
 	 * @param model
-	 * @return 結果画面 - 郵便番号
+	 * @return
 	 */
 	@PostMapping("/weather")
 	public String getWeather(@RequestParam("cityCode") String cityCode,Principal principal, Model model) {

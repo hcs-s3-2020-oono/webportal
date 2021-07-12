@@ -42,7 +42,7 @@ public class TaskService {
 	}
 	
 	/**
-	 * タスクを追加する
+	 * 指定したuser_idのタスクを追加する
 	 * @param user_id
 	 * @param comment
 	 * @param limitday
@@ -76,6 +76,11 @@ public class TaskService {
 		
 	}
 
+	/**
+	 * 指定したidのタスクを削除する
+	 * @param id
+	 * @return
+	 */
 	public boolean deleteTask(int id) {
 		boolean isSuccess = false;
 		

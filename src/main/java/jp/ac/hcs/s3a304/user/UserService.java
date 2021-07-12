@@ -11,20 +11,21 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	/**
+	 * ユーザの一覧データを取得する
+	 * @return userEntity
+	 */
 	public UserEntity getUserList() {
 		UserEntity userEntity;
-		
 		userEntity = userRepository.selectAll();
-		
 		return userEntity;
 		
 	}
 
 	/**
-	 * 入力項目をUserDataへ変換する
-	 * （このメソッドは入力チェックを実施したうえで呼び出すこと）
-	 * @param 入力データ
-	 * @return UserData
+	 * ユーザ追加を行う
+	 * @param userData
+	 * @return True/False
 	 */
 	public boolean insertOne(UserData userData) {
 		int rowNumber;
@@ -37,6 +38,12 @@ public class UserService {
 		return rowNumber > 0;
 	}
 	
+	/**
+	 * 入力項目をUserDataへ変換する
+	 * （このメソッドは入力チェックを実施したうえで呼び出すこと）
+	 * @param 入力データ
+	 * @return UserData
+	 */
 	UserData refillToData(UserForm form) {
 		UserData data = new UserData();
 		data.setUser_id(form.getUser_id());
@@ -49,11 +56,21 @@ public class UserService {
 		return data;
 	}
 	
+	/**
+	 * 指定したuser_idのユーザデータを取得する
+	 * @param user_id
+	 * @return True/False
+	 */
 	public UserData selectOne(String user_id) {
 		UserData data = userRepository.selectOne(user_id);
 		return data;
 	}
 	
+	/**
+	 * 指定したuser_idのユーザデータを取削除する
+	 * @param user_id
+	 * @return 
+	 */
 	public boolean deleteOne(String user_id) {
 		int rowNumber;
 		try {
@@ -65,6 +82,11 @@ public class UserService {
 		return rowNumber > 0;
 	}
 	
+	/**
+	 * ユーザ更新を行う
+	 * @param userData
+	 * @return
+	 */
 	public boolean updateOne(UserData userData) {
 		int rowNumber;
 		try {
@@ -81,6 +103,12 @@ public class UserService {
 		return rowNumber > 0;
 	}
 	
+	/**
+	 * 入力項目をUserDataへ変換する
+	 * （このメソッドは入力チェックを実施したうえで呼び出すこと）
+	 * @param 入力データ
+	 * @return UserData
+	 */
 	UserData refillToData2(UserFormForUpdata form) {
 		UserData data = new UserData();
 		data.setUser_id(form.getUser_id());

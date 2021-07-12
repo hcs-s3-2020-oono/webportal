@@ -20,7 +20,7 @@ public class GourmetService {
 	private static final String URL =
 			"http://webservice.recruit.co.jp/hotpepper/gourmet/v1/?key={API_KEY}&name={shopname}&large_service_area={large_service_area}&format=json";
 	/**
-	 * 
+	 * 検索文字と地域で絞り込みAIPからリストデータを取得する
 	 * @param API_KEY
 	 * @param gourmetname
 	 * @param large_service_area

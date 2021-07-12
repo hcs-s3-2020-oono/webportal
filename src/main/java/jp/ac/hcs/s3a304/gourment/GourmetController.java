@@ -18,9 +18,10 @@ public class GourmetController {
 	@Autowired
 	private GourmetService gourmetService;
 	
+	/** リクルート社のグルメサーチAPI */
 	private static final String API_KEY = "f42051e847492465";
 	/**
-	 * 
+	 * 検索文字（gourmename）で検索した結果画面を表示する
 	 * @param gourmetname
 	 * @param principal
 	 * @param model

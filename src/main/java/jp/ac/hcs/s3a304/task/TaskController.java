@@ -43,6 +43,17 @@ public class TaskController {
 			return "task/task";
 	}
 	
+	/**
+	 * タスク追加を行い、タスク管理画面を表示する
+	 * @param comment
+	 * @param limitday
+	 * @param priority
+	 * @param title
+	 * @param principal
+	 * @param model
+	 * @return
+	 * @throws ParseException
+	 */
 	@PostMapping("/task/insert")
 	public String insertTask(@RequestParam(name = "comment", required = false) String comment,
 			                 @RequestParam(name = "limitday", required = false) String limitday,
@@ -60,6 +71,13 @@ public class TaskController {
 		return getTask(principal, model);
 	}
 	
+	/**
+	 * タスク削除を行い、タスク管理画面を表示する
+	 * @param id
+	 * @param principal
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/task/delete/{id}")
 	public String deleteTask(@PathVariable int id, Principal principal, Model model) {
 		
